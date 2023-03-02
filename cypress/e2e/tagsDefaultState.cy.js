@@ -2,11 +2,8 @@ import elements from "../fixtures/elements.json";
 import defaultValue from "../fixtures/default.json";
 
 describe("defultState", () => {
-  it("Check that the counter is set to (max tags - default tags)", () => {
-    cy.counter().should("have.text", defaultValue.maxTags - defaultValue.tagsAmount);
-  });
-
-  it("add tags -  reload page - the default tags show.", () => {
+  //#stp01
+  it("Reloading the page after deleting the default tag- the user will be shown.", () => {
     cy.addTag("ironSource,game{enter}");
     cy.reload();
 
@@ -18,21 +15,26 @@ describe("defultState", () => {
     cy.tagsList().should("have.length", defaultValue.tagsAmount);
   });
 
-  it("add tags - reload page - update counter to default tags amount", () => {
-    cy.addTag("ironSource,game{enter}");
+  //#stp03
+  it("Check that the default number shown is the default tags amount.", () => {
     cy.reload();
 
-    cy.counter().should("have.text", defaultValue.maxTags - defaultValue.tagsAmount);
+    cy.counter().should(
+      "have.text",
+      defaultValue.maxTags - defaultValue.tagsAmount
+    );
   });
 
-  it("delete one of the default tags, reload page - check that there are only 2 tags.", () => {
+  //#stp02
+  it("Delete one of the default tags, reload page - check that there are only 2 tags.", () => {
     cy.deleteTag("javascript");
     cy.reload();
-    
+
     cy.tagsList().should("have.length", defaultValue.tagsAmount);
   });
-
-  it("instruction text ", () => {
+  
+  //#stp04
+  it("Instruction text.", () => {
     cy.get(elements.instructionText).should(
       "have.text",
       defaultValue.instructionTextExpect
