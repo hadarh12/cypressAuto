@@ -1,0 +1,8 @@
+{
+  "tagsContainer" : "ul",
+  "input": "input",
+  "tagList": "ul li",
+  "removeAllBtn": "button",
+  "tagsCounter": "p > span",
+  "instructionText": ".content > p"
+}
