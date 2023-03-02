@@ -2,6 +2,22 @@ import elements from "../fixtures/elements.json";
 import defaultValue from "../fixtures/default.json";
 
 describe("Tags insertion ", () => {
+
+  //#stp30
+  it("Tags longer than the component framework's width should not be allowed", () => {
+    cy.addLongTag(100);
+    cy.tagsContainer().then((tagsContainerElement) => {
+      cy.tagsList().then((tagsListElement) => {
+        const tagsContainerWidth =
+          tagsContainerElement[0].getBoundingClientRect().width;
+        const tagWidth =
+          tagsListElement[defaultValue.tagsAmount].getBoundingClientRect()
+            .width;
+        expect(tagWidth).to.be.lessThan(tagsContainerWidth);
+      });
+    });
+  });
+
   //#stp09
   it("Add tag - check that the tag was added.", () => {
     cy.addTag("ironSource{enter}");
@@ -121,7 +137,7 @@ describe("Tags insertion ", () => {
   });
 
   //#stp21
-  it("Add tag that contains one char and a space - the tag will not be shonw.", () => {
+  it("Add tag that contains one char and a space - the tag will not be shown.", () => {
     cy.addTag(" £ {enter}");
 
     cy.tagsList().should("not.include.text", "£ ");
