@@ -20,3 +20,7 @@ Cypress.Commands.add("addTag", (text) => {
     var tagsListElement = cy.get(elements.tagList).contains(text);
     tagsListElement.children(".uit").click();
   });
+
+  Cypress.Commands.add("tagsContainer", () => {
+    cy.get(elements.tagsContainer);
+  });
