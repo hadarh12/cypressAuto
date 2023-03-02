@@ -26,7 +26,7 @@ describe("defultState", () => {
   });
 
   //#stp02
-  it("Delete one of the default tags, reload page - check that there are only 2 tags.", () => {
+  it("Delete one of the default tags, reload page - check that there are only 2 tags (doesn’t add one more) .", () => {
     cy.deleteTag(defaultValue.tags[0]);
     cy.reload();
 
