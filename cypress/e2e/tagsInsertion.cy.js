@@ -4,7 +4,7 @@ import { buildArrayByIndex } from "../support/utils.js";
 
 describe("Tags insertion ", () => {
   //#stp30
-  it("Tags longer than the component framework's width should not be allowed", () => {
+  it("Tag longer than the tags container length -not allowed.", () => {
     cy.addLongTag(100);
     cy.tagsContainer().then((tagsContainerElement) => {
       cy.tagsList().then((tagsListElement) => {
@@ -56,7 +56,7 @@ describe("Tags insertion ", () => {
   });
 
   //#stp13
-  it("Add 11 tags one by one - not allowed.", () => {
+  it("Add an amount of tags bigger by one than the maximum tags amount one by one - not allowed.", () => {
     for (let i = 0; i < +defaultValue.maxTags + 1 ; i++) {
       cy.addTag(`${i}${i}{enter}`);
     }
@@ -74,7 +74,7 @@ describe("Tags insertion ", () => {
   });
 
   //#stp14
-  it("Add tags together, the tags container contain defaulttagsAmount  maxTags  1 - not allowed.", () => {
+  it("Add an amount of tags bigger by one than the maximum tags amount together - not allowed. - not allowed.", () => {
     let tagListToCheck = buildArrayByIndex(
       +defaultValue.maxTags + 1
     );
@@ -84,7 +84,7 @@ describe("Tags insertion ", () => {
   });
 
   //#stp16
-  it("Add tags together, the first tags won’t be added(depends on the default tags amount).", () => {
+  it("Add an amount of tags bigger than the maximum tags amount together, the first tags won’t be added.", () => {
     let tagListToCheck = buildArrayByIndex(
       +defaultValue.maxTags + 3 
     );
@@ -109,7 +109,7 @@ describe("Tags insertion ", () => {
   });
 
   //#stp19
-  it("Add one char tag - the tag won’t be counted.", () => {
+  it("Add one char tag - the tag won’t count.", () => {
     cy.addTag("£{enter}");
 
     cy.counter().should(
@@ -119,7 +119,7 @@ describe("Tags insertion ", () => {
   });
 
   //#stp18
-  it("Add a one char tag as a part of several tags - the tag with one char wont added to the tag list.", () => {
+  it("Add a one char tag as a part of several tags together (split by a comma). - the tag with one char wont added to the tag list.", () => {
     cy.addTag("£,game{enter}");
 
     cy.tagsList().should("not.include.text", "£");
@@ -143,7 +143,7 @@ describe("Tags insertion ", () => {
   });
 
   //#stp22
-  it("Add one char tag as a part of several tags that contains one char and a space - the tag wont added.", () => {
+  it("Add one char tag as a part of several tags that contains one char and a space - the one char tag wont added.", () => {
     cy.addTag(" £ ,game{enter}");
 
     cy.tagsList().should("not.include.text", "£ ");
@@ -191,7 +191,7 @@ describe("Tags insertion ", () => {
   });
 
   //#stp24
-  it("Add the same tag name twice as a string split by a comma - check that only one of the duplicitous tags added", () => {
+  it("Add the same tag several times in one insertion split by a comma - check that only one of the duplicates tags is shown", () => {
     cy.addTag("game,game,ironSource{enter}");
 
     cy.tagsList().should("have.length", +defaultValue.tagsAmount + 2);
@@ -199,7 +199,7 @@ describe("Tags insertion ", () => {
   });
 
   //#stp26
-  it("Add the same tag name twice as a string split a by comma - check that only one of the duplicitous tags counted.", () => {
+  it("Add the same tag name as a string split a by comma - check that only one of the duplicate tags counted.", () => {
     cy.addTag("game,game,ironSource{enter}");
 
     cy.counter().should(
