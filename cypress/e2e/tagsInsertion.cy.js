@@ -1,6 +1,6 @@
 import elements from "../fixtures/elements.json";
 import defaultValue from "../fixtures/default.json";
-import { buildArryByIndex } from "../support/utils.js";
+import { buildArrayByIndex } from "../support/utils.js";
 
 describe("Tags insertion ", () => {
   //#stp30
@@ -36,7 +36,7 @@ describe("Tags insertion ", () => {
   });
 
   //#stp11
-  it("Add single tag - check if the counter decreased.", () => {
+  it("Add single tag - check if the counter decreased by one.", () => {
     cy.addTag("game{enter}");
 
     cy.counter().should(
@@ -57,7 +57,7 @@ describe("Tags insertion ", () => {
 
   //#stp13
   it("Add 11 tags one by one - not allowed.", () => {
-    for (let i = 0; i <= defaultValue.maxTags - defaultValue.tagsAmount; i++) {
+    for (let i = 0; i < +defaultValue.maxTags + 1 ; i++) {
       cy.addTag(`${i}${i}{enter}`);
     }
 
@@ -66,7 +66,7 @@ describe("Tags insertion ", () => {
 
   //#stp15
   it("Add 10 tags one by one - allowed.", () => {
-    for (let i = 0; i < defaultValue.maxTags - defaultValue.tagsAmount; i++) {
+    for (let i = 0; i < +defaultValue.maxTags - +defaultValue.tagsAmount; i++) {
       cy.addTag(`${i}${i}{enter}`);
     }
 
@@ -74,9 +74,9 @@ describe("Tags insertion ", () => {
   });
 
   //#stp14
-  it("Add tags together, the tags container contain defaulttagsAmount + maxTags + 1 - not allowed.", () => {
-    let tagListToCheck = buildArryByIndex(
-      defaultValue.maxTags - defaultValue.tagsAmount + 1
+  it("Add tags together, the tags container contain defaulttagsAmount  maxTags  1 - not allowed.", () => {
+    let tagListToCheck = buildArrayByIndex(
+      +defaultValue.maxTags + 1
     );
     const tagsString = tagListToCheck.join(",");
     cy.addTag(tagsString + "{enter}");
@@ -85,14 +85,14 @@ describe("Tags insertion ", () => {
 
   //#stp16
   it("Add tags together, the first tags won’t be added(depends on the default tags amount).", () => {
-    let tagListToCheck = buildArryByIndex(
-      defaultValue.maxTags - defaultValue.tagsAmount + 3
+    let tagListToCheck = buildArrayByIndex(
+      +defaultValue.maxTags + 3 
     );
 
     const tagsString = tagListToCheck.join(",");
     cy.addTag(tagsString + "{enter}");
 
-    for (let i = 0; i <= defaultValue.tagsAmount; i++) {
+    for (let i = 0; i < defaultValue.tagsAmount + 3 ; i++) {
       cy.tagsList().should("not.include.text", tagListToCheck[i]);
     }
   });
@@ -136,14 +136,14 @@ describe("Tags insertion ", () => {
   });
 
   //#stp21
-  it("Add tag that contains one char and a space - the tag will not be shown.", () => {
+  it("Add tag that contains one char and a space - the tag wont added.", () => {
     cy.addTag(" £ {enter}");
 
     cy.tagsList().should("not.include.text", "£ ");
   });
 
   //#stp22
-  it("Add a one char tag as a part of several tags that contains one char and a space - the tag will not be shown.", () => {
+  it("Add one char tag as a part of several tags that contains one char and a space - the tag wont added.", () => {
     cy.addTag(" £ ,game{enter}");
 
     cy.tagsList().should("not.include.text", "£ ");
@@ -191,7 +191,7 @@ describe("Tags insertion ", () => {
   });
 
   //#stp24
-  it("Add the same tag name as a string split by a comma - check that only one of the duplicitous tags is shown", () => {
+  it("Add the same tag name twice as a string split by a comma - check that only one of the duplicitous tags added", () => {
     cy.addTag("game,game,ironSource{enter}");
 
     cy.tagsList().should("have.length", +defaultValue.tagsAmount + 2);
@@ -199,7 +199,7 @@ describe("Tags insertion ", () => {
   });
 
   //#stp26
-  it("Add the same tag name as a string split a by comma - check that only one of the duplicitous tags counted.", () => {
+  it("Add the same tag name twice as a string split a by comma - check that only one of the duplicitous tags counted.", () => {
     cy.addTag("game,game,ironSource{enter}");
 
     cy.counter().should(

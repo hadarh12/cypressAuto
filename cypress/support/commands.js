@@ -25,8 +25,8 @@ Cypress.Commands.add("tagsContainer", () => {
   cy.get(elements.tagsContainer);
 });
 
-Cypress.Commands.add("addLongTag", (TagLength) => {
-  for (let i = 0; i < +TagLength; i++) {
+Cypress.Commands.add("addLongTag", (tagLength) => {
+  for (let i = 0; i < +tagLength; i++) {
     cy.addTag("1");
   }
   cy.addTag("{enter}");

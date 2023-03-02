@@ -1,11 +1,11 @@
-function buildArryByIndex(arryIndex) {
+function buildArrayByIndex(arrayIndex) {
   let tagListToCheck = [];
 
-  for (let i = 0; i < arryIndex; i++) {
+  for (let i = 0; i < arrayIndex; i++) {
     tagListToCheck.push(`${i}${i}`);
   }
 
   return tagListToCheck;
 }
 
-export { buildArryByIndex };
+export { buildArrayByIndex };

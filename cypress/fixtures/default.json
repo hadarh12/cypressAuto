@@ -1,6 +1,6 @@
 {
     "tagsAmount": "2",
     "maxTags": "10",
-    "tags": "node javascript",
+    "tags": ["node" ,"javascript"],
     "instructionTextExpect": "Press enter or add a comma after each tag"
   }

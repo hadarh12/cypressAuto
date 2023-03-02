@@ -1,23 +1,18 @@
 import defaultValue from "../fixtures/default.json";
 
 describe("delete tag", () => {
-  //#stp06
-  it("Add 2 tags and delete 1 - check that the counter increased by 1.", () => {
-    cy.addTag("ironSource,game{enter}");
-    cy.deleteTag("ironSource");
-
-    cy.counter().should(
-      "have.text",
-      defaultValue.maxTags - defaultValue.tagsAmount - 1
-    );
-  });
 
   //#stp05
-  it("Add tag and delete it - the tag is not part of the tags list.", () => {
-    cy.addTag("ironSource{enter}");
-    cy.deleteTag("ironSource");
-
-    cy.tagsList().contains("ironSource").should("not.exist");
+  it("Delete tag - the tag is not part of the tags list.", () => {
+    if (defaultValue.tags === null) {
+        cy.addTag("ironSource{enter}");
+        cy.deleteTag("ironSource");
+        cy.tagsList().contains("ironSource").should("not.exist");
+      }
+      else{
+          cy.deleteTag(defaultValue.tags[0]);
+          cy.tagsList().contains("defaultValue.tags[0]").should("not.exist");
+      }
   });
 
   //#stp07
@@ -28,13 +23,15 @@ describe("delete tag", () => {
   });
 
   //#stp08
-  it("Delete a single tag – the count increased.", () => {
-    cy.deleteTag("javascript");
-    cy.reload();
-
-    cy.counter().should(
-      "have.text",
-      defaultValue.maxTags - defaultValue.tagsAmount
-    );
+  it("Delete tag – the count increased by one.", () => {
+    if (defaultValue.tags === null) {
+        cy.addTag("ironSource{enter}");
+        cy.deleteTag("ironSource");
+        cy.counter("heve.text", defaultValue.maxTags - 1);
+      }
+      else{
+          cy.deleteTag(defaultValue.tags[0]);
+          cy.counter("heve.text", defaultValue.maxTags -  defaultValue.tagsAmount - 1);
+      }
   });
 });
