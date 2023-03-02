@@ -74,7 +74,7 @@ describe("Tags insertion ", () => {
   });
 
   //#stp14
-  it.only("Add tags together, the tags container contain defaulttagsAmount + maxTags + 1 - not allowed.", () => {
+  it("Add tags together, the tags container contain defaulttagsAmount + maxTags + 1 - not allowed.", () => {
     let tagListToCheck = buildArryByIndex(
       defaultValue.maxTags - defaultValue.tagsAmount + 1
     );
@@ -84,7 +84,7 @@ describe("Tags insertion ", () => {
   });
 
   //#stp16
-  it.only("Add tags together, the first tags won’t be added(depends on the default tags amount).", () => {
+  it("Add tags together, the first tags won’t be added(depends on the default tags amount).", () => {
     let tagListToCheck = buildArryByIndex(
       defaultValue.maxTags - defaultValue.tagsAmount + 3
     );
